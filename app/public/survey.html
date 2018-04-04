@@ -155,10 +155,10 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div class ="closest-name">
+                            <div class="closest-name">
 
                             </div>
-                            <div class ="closest-photo">
+                            <div class="closest-photo">
 
                             </div>
                         </div>
@@ -188,50 +188,50 @@
     $(".submit").on("click", function (event) {
         event.preventDefault();
 
-        // Here we grab the form elements
-        var newFriend = {
-            name: $("#name").val().trim(),
-            photo: $("#photo").val().trim(),
-            scores: [
-                $("#q1").val().trim(),
-                $("#q2").val().trim(),
-                $("#q3").val().trim(),
-                $("#q4").val().trim(),
-                $("#q5").val().trim(),
-                $("#q6").val().trim(),
-                $("#q7").val().trim(),
-                $("#q8").val().trim(),
-                $("#q9").val().trim(),
-                $("#q10").val().trim()
-            ]
-        };
-        console.log(newFriend)
+        if ($("#name").val().trim() === "" || $("#photo").val().trim() === "" || $("#q1").val().trim() === "" || $("#q2").val().trim() === "" || $("#q3").val().trim() === "" || $("#q4").val().trim() === ""
+            || $("#q5").val().trim() === "" || $("#q6").val().trim() === "" || $("#q7").val().trim() === "" || $("#q8").val().trim() === "" || $("#q9").val().trim() === "" || $("#q10").val().trim() === "") {
+            alert("Please fill out the entire survey before submitting")
+            return false;
+        }
+        else {
+            // Here we grab the form elements
+            var newFriend = {
+                name: $("#name").val().trim(),
+                photo: $("#photo").val().trim(),
+                scores: [
+                    $("#q1").val().trim(),
+                    $("#q2").val().trim(),
+                    $("#q3").val().trim(),
+                    $("#q4").val().trim(),
+                    $("#q5").val().trim(),
+                    $("#q6").val().trim(),
+                    $("#q7").val().trim(),
+                    $("#q8").val().trim(),
+                    $("#q9").val().trim(),
+                    $("#q10").val().trim()
+                ]
+            };
+            console.log(newFriend)
 
-        // $.post("/api/friends", newFriend);
+            // Clear the form when submitting
+            $("#name").val("");
+            $("#photo").val("");
+            $("#q1").val("");
+            $("#q2").val("");
+            $("#q3").val("");
+            $("#q4").val("");
+            $("#q5").val("");
+            $("#q6").val("");
+            $("#q7").val("");
+            $("#q8").val("");
+            $("#q9").val("");
+            $("#q10").val("");
 
-        // Clear the form when submitting
-        $("#name").val("");
-        $("#photo").val("");
-        $("#q1").val("");
-        $("#q2").val("");
-        $("#q3").val("");
-        $("#q4").val("");
-        $("#q5").val("");
-        $("#q6").val("");
-        $("#q7").val("");
-        $("#q8").val("");
-        $("#q9").val("");
-        $("#q10").val("");
-        
-        $.post("/api/friends", newFriend, function(data) {
-            $(".closest-name").html("<h6>" + data.name + "</h6>")
-            $(".closest-photo").html('<img src="' + data.photo + '" alt="Photo of Friend">')
-
-            // $("#resultModal").modal("toggle"); 
-            console.log(data.name)
-            console.log(data.photo)
-        })
-
+            $.post("/api/friends", newFriend, function (data) {
+                $(".closest-name").html("<h6>" + data.name + "</h6>")
+                $(".closest-photo").html('<img src="' + data.photo + '" alt="Photo of Friend">')
+            })
+        }
     });
 
 </script>
