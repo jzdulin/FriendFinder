@@ -141,11 +141,11 @@
             <br>
             <br>
 
-            <button type="submit" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary btn-lg btn-block submit">Submit</button>
+            <button type="submit" data-toggle="modal" data-target="#resultModal" class="btn btn-primary btn-lg btn-block submit">Submit</button>
 
             <hr>
 
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -155,10 +155,10 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div class = "closest-name">
+                            <div class ="closest-name">
 
                             </div>
-                            <div class = "closest-photo">
+                            <div class ="closest-photo">
 
                             </div>
                         </div>
@@ -207,7 +207,7 @@
         };
         console.log(newFriend)
 
-        $.post("/api/friends", newFriend);
+        // $.post("/api/friends", newFriend);
 
         // Clear the form when submitting
         $("#name").val("");
@@ -223,10 +223,13 @@
         $("#q9").val("");
         $("#q10").val("");
         
-        $.get("/api/friends", closestMatch,
-        function(data) {
-            $("closest-name".html("<h6>" + data.name + "</h6>"))
-            $("closest-photo".html('<img src="' + data.photo + '" alt="Photo of Friend"'))
+        $.post("/api/friends", newFriend, function(data) {
+            $(".closest-name").html("<h6>" + data.name + "</h6>")
+            $(".closest-photo").html('<img src="' + data.photo + '" alt="Photo of Friend">')
+
+            // $("#resultModal").modal("toggle"); 
+            console.log(data.name)
+            console.log(data.photo)
         })
 
     });

@@ -10,7 +10,6 @@ module.exports = function(app) {
 
     app.post("/api/friends", function(req, res) {
         
-        friendsData.push(req.body);
         //To be filled later
         var closestMatch = {
             name: "",
@@ -28,20 +27,18 @@ module.exports = function(app) {
 
             for(var j = 0; j < 10; j++) {
                 totalDifference += Math.abs(parseInt(userScores[j]) - parseInt(friendsData[i].scores[j]));
-                
-                if (totalDifference <= closestMatch.difference) {
-                    
-                    closestMatch.name = friendsData[i].name;
-                    closestMatch.photo = friendsData[i].photo;
-                    closestMatch.difference = totalDifference;
-                }
             }
+
+            if (totalDifference <= closestMatch.difference) {
+                //filling our empty closestMatch if its the smallest difference
+                closestMatch.name = friendsData[i].name;
+                closestMatch.photo = friendsData[i].photo;
+                closestMatch.difference = totalDifference;
+            }
+            
         }
+        friendsData.push(req.body);
         console.log(closestMatch)
         res.json(closestMatch);
     })
-
 }
-
-
-
