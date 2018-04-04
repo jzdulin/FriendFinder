@@ -6,7 +6,7 @@ var path = require("path");
 //creating the Express server
 var app = express();
 //selecting the port
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 3000;
 
 //Sets up the Express app to handle data parsing
 app.use(bodyParser.urlencoded({ extended: true }));
